@@ -22,10 +22,18 @@ public class MainWindow extends JFrame {
 		initUI();
 	}
 	
+	public JPanel getInputPanel() {
+		return inputPanel;
+	}
+
+	public JPanel getGraphPanel() {
+		return graphPanel;
+	}
+	
 	private void initUI() {
-		createWindow();
 		createPanels();
 		createLayout();
+		createWindow();
 	}
 
 	private void createWindow() {
