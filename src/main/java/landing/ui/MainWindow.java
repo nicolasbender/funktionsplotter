@@ -45,7 +45,7 @@ public class MainWindow extends JFrame {
 	
 	private void createPanels() {
 		this.inputPanel = new InputPanel();
-		this.graphPanel = new GraphPanel();
+		this.graphPanel = new GraphPanel(this);
 	}
 	
 	private void createLayout() {
