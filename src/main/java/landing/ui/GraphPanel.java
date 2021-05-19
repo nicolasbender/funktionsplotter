@@ -5,9 +5,8 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public class GraphPanel extends JPanel {
-	private MainWindow mainWindow;
+	private final MainWindow mainWindow;
 	private int gridWidthInPixels;
 	private Tuple centerOfCoordinateSystem;
 
@@ -81,12 +80,15 @@ public class GraphPanel extends JPanel {
 	}
 
 	private void drawxAxisMarks(Graphics g) {
+		int upperBorder = 0;
+		int lowerBorder = this.getHeight();
+		
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getX()
 				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getX() / getGridWidthInPixels() + 1; i++) {
 			if (i != 0) {
-				g.drawLine(getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, 0,
-						getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, this.getHeight());
+				g.drawLine(getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, upperBorder,
+						getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, lowerBorder);
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX() + getGridWidthInPixels() * i,
 						getCenterOfCoordinateSystem().getY() );
 				}
@@ -99,11 +101,14 @@ public class GraphPanel extends JPanel {
 	}
 
 	private void drawyAxisMarks(Graphics g) {
+		int leftBorder = 0;
+		int rightBorder = this.getWidth();
+		
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getY()
 				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getY() / getGridWidthInPixels() + 1; i++) {
 			if (i != 0) {
-				g.drawLine(0, getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i, this.getWidth(),
+				g.drawLine(leftBorder, getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i, rightBorder,
 						getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i);
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX(),
 						getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i);
