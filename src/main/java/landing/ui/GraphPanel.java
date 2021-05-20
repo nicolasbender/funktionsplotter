@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class GraphPanel extends JPanel {
 	private final MainWindow mainWindow;
 	private int gridWidthInPixels;
-	private Tuple centerOfCoordinateSystem;
+	private PixelCoordinate centerOfCoordinateSystem;
 
 	public GraphPanel(MainWindow mainWindow) {
 		this.mainWindow = mainWindow;
@@ -33,7 +33,9 @@ public class GraphPanel extends JPanel {
 	}
 
 	public void createAxesAndGrid(Graphics g) {
-		determineInitialCenterOfCoordinateSystem();
+		if(this.centerOfCoordinateSystem == null) {
+			determineInitialCenterOfCoordinateSystem();
+		}
 		createGrid(g);
 		createAxes(g);
 	}
@@ -41,7 +43,7 @@ public class GraphPanel extends JPanel {
 	private void determineInitialCenterOfCoordinateSystem() {
 		int halfOfxAxis = this.getWidth() / 2;
 		int halfOfyAxis = this.getHeight() / 2;
-		setCenterOfCoordinateSystem(new Tuple(halfOfxAxis, halfOfyAxis));
+		setCenterOfCoordinateSystem(new PixelCoordinate(halfOfxAxis, halfOfyAxis));
 	}
 
 	private void createGrid(Graphics g) {
@@ -63,14 +65,18 @@ public class GraphPanel extends JPanel {
 	}
 
 	public void setGridWidthInPixels(int gridWidthInPixels) {
-		this.gridWidthInPixels = gridWidthInPixels;
+		if(gridWidthInPixels > 0) {
+			this.gridWidthInPixels = gridWidthInPixels;
+		} else{
+			throw new IllegalArgumentException("GridWidth has to be greater than 0: " + gridWidthInPixels);
+		}
 	}
 
-	public Tuple getCenterOfCoordinateSystem() {
+	public PixelCoordinate getCenterOfCoordinateSystem() {
 		return centerOfCoordinateSystem;
 	}
 
-	public void setCenterOfCoordinateSystem(Tuple centerOfCoordinateSystem) {
+	public void setCenterOfCoordinateSystem(PixelCoordinate centerOfCoordinateSystem) {
 		this.centerOfCoordinateSystem = centerOfCoordinateSystem;
 	}
 
