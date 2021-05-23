@@ -56,10 +56,6 @@ public class GraphPanel extends JPanel {
 		drawyAxis(g);
 	}
 
-	public MainWindow getMainWindow() {
-		return mainWindow;
-	}
-
 	public int getGridWidthInPixels() {
 		return gridWidthInPixels;
 	}

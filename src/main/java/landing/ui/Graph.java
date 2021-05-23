@@ -1,26 +1,17 @@
 package landing.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import landing.function.FunctionManager;
 
 public class Graph {
-	private List<ListEntry> valueTable;
+	private ValueTable valueTable;
 	private final GraphPanel graphPanel;
 	private double resolutionOfxValuesAsNumber;
+	private FunctionManager functionManager;
 	
-	public Graph(GraphPanel graphPanel) {
+	public Graph(GraphPanel graphPanel) { // TODO: All functions in GraphPanel, ValueTable belongs in here
 		this.graphPanel = graphPanel;
 		setResolutionOfxValues(0.01);
-		valueTable = new ArrayList<ListEntry>();
-	}
-
-
-	public List<ListEntry> getValueTable() {
-		return valueTable;
-	}
-	
-	public void setValueTable(List<ListEntry> valueTable) {
-		this.valueTable = valueTable;
+		valueTable = new ValueTable(this);
 	}
 
 	public PixelCoordinate convertValueToPixelCoordinate(ValueCoordinate valueCoordinate) {
@@ -62,5 +53,9 @@ public class Graph {
 			default:
 				throw new IllegalStateException("Unexpected type: " + resolutionOfxValues);
 		}
+	}
+
+	public FunctionManager letFunction() {
+		return null;
 	}
 }

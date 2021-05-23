@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
 	private String title;
 	private JPanel inputPanel;
@@ -41,6 +40,7 @@ public class MainWindow extends JFrame {
 		this.setVisible(true);
 		this.setMinimumSize(MINIMUM_SIZE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	private void createPanels() {
