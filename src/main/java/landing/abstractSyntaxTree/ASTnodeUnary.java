@@ -1,5 +1,5 @@
 package landing.abstractSyntaxTree;
 
-public interface ASTnodeOneChild extends ASTnode {
+public interface ASTnodeUnary extends ASTnode {
     ValueNode getValueNode();
 }

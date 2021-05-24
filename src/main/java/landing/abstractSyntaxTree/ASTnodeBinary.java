@@ -1,6 +1,6 @@
 package landing.abstractSyntaxTree;
 
-public interface ASTnodeTwoChild extends ASTnode{
+public interface ASTnodeBinary extends ASTnode{
     ASTnode getLeftNode();
     ASTnode getRightNode();
 }

@@ -2,7 +2,7 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public class VariableNode implements ASTnodeOneChild{
+public class VariableNode implements ASTnodeUnary {
     private ValueNode valueNode;
 
     public VariableNode(ValueNode valueNode) {

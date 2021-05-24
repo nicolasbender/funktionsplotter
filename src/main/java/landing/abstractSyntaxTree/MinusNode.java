@@ -2,7 +2,7 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public class MinusNode implements ASTnodeTwoChild{
+public class MinusNode implements ASTnodeBinary {
     private ASTnode leftNode;
     private ASTnode rightNode;
 
