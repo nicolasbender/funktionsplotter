@@ -14,11 +14,11 @@ public class DivisionNode extends ASTnodeBinary {
     }
 
     @Override
-    public double doOperation() {
-        double rightNodeValue = rightNode.doOperation();
+    public double doOperation(double value) {
+        double rightNodeValue = rightNode.doOperation(value);
         if(Math.abs(rightNodeValue)<1E-8) {
             throw new ArithmeticException("Divison by zero");
         }
-        return leftNode.doOperation() / rightNodeValue;
+        return leftNode.doOperation(value) / rightNodeValue;
     }
 }

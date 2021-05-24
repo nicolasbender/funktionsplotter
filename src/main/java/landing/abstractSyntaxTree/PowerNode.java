@@ -12,4 +12,9 @@ public class PowerNode extends ASTnodeBinary {
     public TokenType getTokenType() {
         return TokenType.POWER_SIGN;
     }
+
+    @Override
+    public double doOperation(double value) {
+        return Math.pow(leftNode.doOperation(value), rightNode.doOperation(value));
+    }
 }

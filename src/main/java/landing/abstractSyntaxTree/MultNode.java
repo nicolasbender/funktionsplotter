@@ -12,4 +12,9 @@ public class MultNode extends ASTnodeBinary {
     public TokenType getTokenType() {
         return TokenType.MULT_SIGN;
     }
+
+    @Override
+    public double doOperation(double value) {
+        return leftNode.doOperation(value) * rightNode.doOperation(value);
+    }
 }

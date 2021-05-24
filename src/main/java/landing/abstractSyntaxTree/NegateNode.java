@@ -2,10 +2,9 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public class MinusNode extends ASTnodeBinary {
-
-    public MinusNode(ASTnode leftNode, ASTnode rightNode) {
-        super(leftNode, rightNode);
+public class NegateNode extends ASTnodeUnary {
+    public NegateNode(ASTnode node) {
+        super(node);
     }
 
     @Override
@@ -15,6 +14,6 @@ public class MinusNode extends ASTnodeBinary {
 
     @Override
     public double doOperation(double value) {
-        return leftNode.doOperation(value) - rightNode.doOperation(value);
+        return -node.doOperation(value);
     }
 }

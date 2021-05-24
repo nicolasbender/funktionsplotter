@@ -1,15 +1,10 @@
 package landing.abstractSyntaxTree;
 
 public abstract class ASTnodeUnary extends ASTnode {
-    protected ValueNode valueNode;
-    public ASTnodeUnary(ValueNode valueNode) {
-        this.valueNode = valueNode;
+    protected ASTnode node;
+    public ASTnodeUnary(ASTnode node) {
+        this.node = node;
     }
 
-    public double doOperation() {
-        return valueNode.getValue();
-    }
-    public ValueNode getValueNode() {
-        return valueNode;
-    }
+    public abstract double doOperation(double value);
 }
