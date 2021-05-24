@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-@SuppressWarnings("serial")
 public class InputPanel extends JPanel {
 	private static final String LABEL_FOR_INPUTFIELD = "f(x) = ";
 	private static final String BUTTON_TEXT = "Calculate!";
@@ -42,5 +41,9 @@ public class InputPanel extends JPanel {
 	
 	public String getInputTerm() {
 		return inputField.getText();
+	}
+
+	public JButton getCalculateButton() {
+		return calculateButton;
 	}
 }

@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 public class MainWindow extends JFrame {
 	private String title;
-	private JPanel inputPanel;
-	private JPanel graphPanel;
+	private InputPanel inputPanel;
+	private GraphPanel graphPanel;
 	private static final Dimension MINIMUM_SIZE = new Dimension(800,600);
 	
 	public MainWindow(){
@@ -21,11 +21,11 @@ public class MainWindow extends JFrame {
 		initUI();
 	}
 	
-	public JPanel getInputPanel() {
+	public InputPanel getInputPanel() {
 		return inputPanel;
 	}
 
-	public JPanel getGraphPanel() {
+	public GraphPanel getGraphPanel() {
 		return graphPanel;
 	}
 	
@@ -45,7 +45,7 @@ public class MainWindow extends JFrame {
 	
 	private void createPanels() {
 		this.inputPanel = new InputPanel();
-		this.graphPanel = new GraphPanel(this);
+		this.graphPanel = new GraphPanel();
 	}
 	
 	private void createLayout() {

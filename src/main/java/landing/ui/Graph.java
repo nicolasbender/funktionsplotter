@@ -1,17 +1,24 @@
 package landing.ui;
 
-import landing.function.FunctionManager;
+import landing.function.Function;
 
 public class Graph {
-	private ValueTable valueTable;
+	private final ValueTable valueTable;
 	private final GraphPanel graphPanel;
 	private double resolutionOfxValuesAsNumber;
-	private FunctionManager functionManager;
+	private final Function function;
 	
-	public Graph(GraphPanel graphPanel) { // TODO: All functions in GraphPanel, ValueTable belongs in here
+	public Graph(GraphPanel graphPanel, Function function) {
 		this.graphPanel = graphPanel;
+		this.function = function;
 		setResolutionOfxValues(0.01);
 		valueTable = new ValueTable(this);
+		updateValueTable();
+	}
+
+	public void updateValueTable() {
+		valueTable.calculateValues();
+		valueTable.calculateDerivativeValues();
 	}
 
 	public PixelCoordinate convertValueToPixelCoordinate(ValueCoordinate valueCoordinate) {
@@ -38,6 +45,8 @@ public class Graph {
 
 	public void setResolutionOfxValues(double resolutionOfxValuesAsNumber) {
 		this.resolutionOfxValuesAsNumber = resolutionOfxValuesAsNumber;
+		updateValueTable();
+
 	}
 	
 	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues) {
@@ -53,9 +62,14 @@ public class Graph {
 			default:
 				throw new IllegalStateException("Unexpected type: " + resolutionOfxValues);
 		}
+		updateValueTable();
 	}
 
-	public FunctionManager letFunction() {
-		return null;
+	public Function letFunction() {
+		return function;
+	}
+
+	public ValueTable getValueTable() {
+		return valueTable;
 	}
 }

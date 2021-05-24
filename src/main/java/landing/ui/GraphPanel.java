@@ -1,17 +1,19 @@
 package landing.ui;
 
+import landing.function.Function;
+
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel {
-	private final MainWindow mainWindow;
 	private int gridWidthInPixels;
 	private PixelCoordinate centerOfCoordinateSystem;
+	private Graph graph;
+	private Function function;
 
-	public GraphPanel(MainWindow mainWindow) {
-		this.mainWindow = mainWindow;
+	public GraphPanel() {
 		setGridWidthInPixels(100);
 		createPanel();
 	}
@@ -115,6 +117,28 @@ public class GraphPanel extends JPanel {
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX(),
 						getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i);
 			}
+		}
+	}
+
+	public void drawFunction(Graphics g, Function function, boolean drawWithDerivative) {
+		if(!this.function.equals(function)) {
+			graph = new Graph(this, function);
+		}
+		ValueTable valueTable = graph.getValueTable();
+		PixelCoordinate formerValue = valueTable.getPixelValueTable().get(0);
+		PixelCoordinate formerDerivativeValue = valueTable.getPixelDerivativeValueTable().get(0);
+		for(int i = 1; i<valueTable.getSize(); i++) {
+			PixelCoordinate currentValue = valueTable.getPixelValueTable().get(i);
+			PixelCoordinate currentDerivativeValue = valueTable.getPixelDerivativeValueTable().get(i);
+			if(drawWithDerivative) {
+				g.setColor(Color.cyan);
+				g.drawLine(formerDerivativeValue.getX(), formerDerivativeValue.getY(), currentDerivativeValue.getX(), currentDerivativeValue.getY());
+			}
+			g.setColor(Color.blue);
+			g.drawLine(formerValue.getX(), formerValue.getY(), currentValue.getX(), currentValue.getY());
+
+			formerValue = currentValue;
+			formerDerivativeValue = currentDerivativeValue;
 		}
 	}
 }

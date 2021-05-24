@@ -28,7 +28,7 @@ public class GraphTest {
 
     @Test
     public void testConvertValueToPixel() {
-        Graph graph = new Graph(graphPanel);
+        Graph graph = new Graph(graphPanel, null);
         PixelCoordinate pixelCoordinateCenter = graph.convertValueToPixelCoordinate(new ValueCoordinate(0.0,0.0));
         assertEquals(pixelCoordinateCenter, new PixelCoordinate(400, 300));
         PixelCoordinate pixelCoordinateUpperLeft = graph.convertValueToPixelCoordinate(new ValueCoordinate(-2.5,4.0));
@@ -39,14 +39,14 @@ public class GraphTest {
 
     @Test
     public void testGetValueToPixelMostLeft() {
-        Graph graph = new Graph(graphPanel);
+        Graph graph = new Graph(graphPanel, null);
         ValueCoordinate mostLeft = graph.getValueToPixelMostLeft();
         assertEquals(mostLeft, new ValueCoordinate(-8.0, -6.0));
     }
 
     @Test
     public void testGetValueToPixelMostRight() {
-        Graph graph = new Graph(graphPanel);
+        Graph graph = new Graph(graphPanel, null);
         ValueCoordinate mostRight = graph.getValueToPixelMostRight();
         assertEquals(mostRight, new ValueCoordinate(12.0, 14.0));
     }
