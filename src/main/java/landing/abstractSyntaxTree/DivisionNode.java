@@ -14,7 +14,7 @@ public class DivisionNode extends ASTnodeBinary {
     }
 
     @Override
-    public double doOperation(double value) {
+    public double doOperation(double value) throws ArithmeticException{
         double rightNodeValue = rightNode.doOperation(value);
         if(Math.abs(rightNodeValue)<1E-8) {
             throw new ArithmeticException("Divison by zero");

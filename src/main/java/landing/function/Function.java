@@ -19,7 +19,7 @@ public class Function {
         this.rootNode = compile(functionAsString);
     }
 
-    public double calculateValueOf(double currentX) {
+    public double calculateValueOf(double currentX) throws ArithmeticException{
         return rootNode.doOperation(currentX);
     }
 
@@ -29,6 +29,10 @@ public class Function {
         List<Token> tokenList = scanner.getTokenList();
         Parser parser = new Parser(tokenList);
         return parser.getRoot();
+    }
+
+    public String getFunctionAsString() {
+        return functionAsString;
     }
 
     @Override
