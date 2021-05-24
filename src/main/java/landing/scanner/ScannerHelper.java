@@ -1,7 +1,7 @@
 package landing.scanner;
 
-import landing.exceptions.BadParenthesisException;
-import landing.exceptions.BadSymbolException;
+import landing.exceptions.ParenthesisException;
+import landing.exceptions.SymbolException;
 
 public class ScannerHelper {
     private String preprocessed;
@@ -14,7 +14,7 @@ public class ScannerHelper {
         return functionAsString.replace(" ", "");
     }
 
-    public Token getToken(String partOfFunction, int position, int nestingLevel) throws BadParenthesisException, BadSymbolException {
+    public Token getToken(String partOfFunction, int position, int nestingLevel) throws ParenthesisException, SymbolException {
         char currentSymbol = partOfFunction.charAt(0);
         if(currentSymbol == 'x') {
             return new Token(TokenType.VARIABLE, position, 1, nestingLevel);
@@ -30,14 +30,14 @@ public class ScannerHelper {
             return new Token(TokenType.POWER_SIGN, position, 1, nestingLevel);
         } else if(currentSymbol == '$') {
             if(nestingLevel > 0) {
-                throw new BadParenthesisException("There is at least one open parenthesis");
+                throw new ParenthesisException("There is at least one open parenthesis");
             }
             return new Token(TokenType.END_OF_TERM, position, 1, nestingLevel);
         } else if(currentSymbol == '(') {
             return new Token(TokenType.LEFT_PARENTHESIS, position, 1, nestingLevel+1);
         } else if(currentSymbol == ')') {
             if(nestingLevel == 0) {
-                throw new BadParenthesisException("Right parenthesis without left one at position "+position);
+                throw new ParenthesisException("Right parenthesis without left one at position "+position);
             }
             return new Token(TokenType.RIGHT_PARENTHESIS, position, 1, nestingLevel-1);
         } else if(NumberBuilder.isNumerical(currentSymbol)) {
@@ -46,7 +46,7 @@ public class ScannerHelper {
             return new Token(TokenType.NUMBER, position, valueAsDouble, valueAsString.length(), nestingLevel);
         }
         else {
-            throw new BadSymbolException("Bad symbol at position: "+position+"; cannot generate token");
+            throw new SymbolException("Bad symbol at position: "+position+"; cannot generate token");
         }
     }
 

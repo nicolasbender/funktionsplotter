@@ -1,7 +1,7 @@
 package landing.scanner;
 
-import landing.exceptions.BadParenthesisException;
-import landing.exceptions.BadSymbolException;
+import landing.exceptions.ParenthesisException;
+import landing.exceptions.SymbolException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class Scanner {
     private final List<Token> tokenList;
     private final ScannerHelper scannerHelper;
 
-    public Scanner(String functionAsString) throws BadSymbolException, BadParenthesisException {
+    public Scanner(String functionAsString) throws SymbolException, ParenthesisException {
         scannerHelper = new ScannerHelper(functionAsString);
         String preProcessedfunctionAsString = scannerHelper.getPreprocessed();
         this.tokenList = buildTokenList(preProcessedfunctionAsString);
@@ -20,7 +20,7 @@ public class Scanner {
         return tokenList;
     }
 
-    public List<Token> buildTokenList(String partOfFunction) throws BadSymbolException, BadParenthesisException {
+    public List<Token> buildTokenList(String partOfFunction) throws SymbolException, ParenthesisException {
         List<Token> tokenList = new ArrayList<>();
         Token currentToken;
         int position = 0;
