@@ -1,4 +1,4 @@
-package landing.function;
+package landing.parser;
 
 public class ParsedFunction {
 }
