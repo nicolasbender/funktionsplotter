@@ -2,13 +2,10 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public class DivisionNode implements ASTnodeBinary {
-    private ASTnode leftNode;
-    private ASTnode rightNode;
+public class DivisionNode extends ASTnodeBinary {
 
     public DivisionNode(ASTnode leftNode, ASTnode rightNode) {
-        this.leftNode = leftNode;
-        this.rightNode = rightNode;
+        super(leftNode, rightNode);
     }
 
     @Override
@@ -23,15 +20,5 @@ public class DivisionNode implements ASTnodeBinary {
             throw new ArithmeticException("Divison by zero");
         }
         return leftNode.doOperation() / rightNodeValue;
-    }
-
-    @Override
-    public ASTnode getLeftNode() {
-        return leftNode;
-    }
-
-    @Override
-    public ASTnode getRightNode() {
-        return rightNode;
     }
 }

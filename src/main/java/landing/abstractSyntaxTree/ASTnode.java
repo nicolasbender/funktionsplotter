@@ -2,7 +2,7 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public interface ASTnode {
-    TokenType getTokenType();
-    double doOperation();
+public abstract class ASTnode {
+    public abstract TokenType getTokenType();
+    public abstract double doOperation();
 }

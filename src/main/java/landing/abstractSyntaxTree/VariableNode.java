@@ -2,25 +2,14 @@ package landing.abstractSyntaxTree;
 
 import landing.scanner.TokenType;
 
-public class VariableNode implements ASTnodeUnary {
-    private ValueNode valueNode;
+public class VariableNode extends ASTnodeUnary {
 
     public VariableNode(ValueNode valueNode) {
-        this.valueNode = valueNode;
+        super(valueNode);
     }
 
     @Override
     public TokenType getTokenType() {
         return TokenType.VARIABLE;
-    }
-
-    @Override
-    public double doOperation() {
-        return valueNode.getValue();
-    }
-
-    @Override
-    public ValueNode getValueNode() {
-        return valueNode;
     }
 }
