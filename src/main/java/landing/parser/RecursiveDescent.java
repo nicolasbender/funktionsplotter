@@ -26,10 +26,6 @@ public class RecursiveDescent {
         throw new SyntaxException("Parser expects end of term, but there is: "+ currentToken.getTokenType());
     }
 
-    public double calculateValue(ASTnode node, double xValue) {
-        return node.doOperation(xValue);
-    }
-
     public Token expectToken(int tokenPosition) throws SyntaxException {
         Token currentToken = tokenList.get(tokenPosition);
         if(currentToken.getTokenType() == TokenType.END_OF_TERM) {
@@ -51,7 +47,7 @@ public class RecursiveDescent {
             NodeContainer nodeAndPosition = expressionDeduction(tokenPosition+1);
             tokenPosition = nodeAndPosition.getPosition();
             ASTnode currentNode = nodeAndPosition.getNode();
-            if(expectToken(tokenPosition).getTokenType() == TokenType.RIGHT_PARENTHESIS) {
+            if(expectToken(tokenPosition).getTokenType() != TokenType.RIGHT_PARENTHESIS) {
                 throw new ParenthesisException("Parser expects closing parenthesis, but got: "+ tokenList.get(tokenPosition).getTokenType());
             }
             return new BuildNodeContainer().forPosition(tokenPosition+1).andSetNode(currentNode);
