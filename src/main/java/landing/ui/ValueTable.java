@@ -71,7 +71,7 @@ public class ValueTable {
 		derivativeValue = firstOrderDerivativeForward(yCurrent, yAfter);
 		addValueToDerivativeTable(new ValueCoordinate(xCurrent, derivativeValue));
 
-		for(int tableIndex = 1; tableIndex < secondLastIndex; tableIndex++) {
+		for(int tableIndex = 1; tableIndex < lastIndex; tableIndex++) {
 			xCurrent = valueTable.get(tableIndex).getX();
 			yBefore = valueTable.get(tableIndex - 1).getY();
 			yAfter = valueTable.get(tableIndex + 1).getY();
@@ -91,12 +91,12 @@ public class ValueTable {
 	}
 
 	public double firstOrderDerivativeCentral(double yBefore, double yAfter) {
-		return (yAfter - yBefore) / 2;
+		return (yAfter - yBefore) / (2 * graph.getResolutionOfxValues());
 	}
 	public double firstOrderDerivativeForward(double yCurrent, double yAfter) {
-		return yCurrent - yAfter;
+		return (yCurrent - yAfter)/graph.getResolutionOfxValues();
 	}
 	public double firstOrderDerivativeBackward(double yBefore, double yCurrent) {
-		return yCurrent - yBefore;
+		return (yCurrent - yBefore)/graph.getResolutionOfxValues();
 	}
 }

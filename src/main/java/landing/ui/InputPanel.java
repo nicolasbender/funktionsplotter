@@ -46,4 +46,8 @@ public class InputPanel extends JPanel {
 	public JButton getCalculateButton() {
 		return calculateButton;
 	}
+
+	public JTextField getInputField() {
+		return inputField;
+	}
 }

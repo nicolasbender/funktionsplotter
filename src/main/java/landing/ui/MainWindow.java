@@ -10,6 +10,7 @@ public class MainWindow extends JFrame {
 	private String title;
 	private InputPanel inputPanel;
 	private GraphPanel graphPanel;
+	private UiController uiController;
 	private static final Dimension MINIMUM_SIZE = new Dimension(800,600);
 	
 	public MainWindow(){
@@ -33,6 +34,7 @@ public class MainWindow extends JFrame {
 		createPanels();
 		createLayout();
 		createWindow();
+		uiController = new UiController(this);
 	}
 
 	private void createWindow() {

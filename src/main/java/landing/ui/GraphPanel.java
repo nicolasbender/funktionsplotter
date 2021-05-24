@@ -12,9 +12,11 @@ public class GraphPanel extends JPanel {
 	private PixelCoordinate centerOfCoordinateSystem;
 	private Graph graph;
 	private Function function;
+	private boolean drawWithDerivative;
 
 	public GraphPanel() {
 		setGridWidthInPixels(100);
+		drawWithDerivative = true;
 		createPanel();
 	}
 
@@ -26,6 +28,7 @@ public class GraphPanel extends JPanel {
 	public void paint(Graphics g) {
 		createBackground(g);
 		createAxesAndGrid(g);
+		drawFunction(g);
 	}
 
 	private void createBackground(Graphics g) {
@@ -68,6 +71,8 @@ public class GraphPanel extends JPanel {
 		} else{
 			throw new IllegalArgumentException("GridWidth has to be greater than 0: " + gridWidthInPixels);
 		}
+		repaint();
+		revalidate();
 	}
 
 	public PixelCoordinate getCenterOfCoordinateSystem() {
@@ -76,6 +81,8 @@ public class GraphPanel extends JPanel {
 
 	public void setCenterOfCoordinateSystem(PixelCoordinate centerOfCoordinateSystem) {
 		this.centerOfCoordinateSystem = centerOfCoordinateSystem;
+		repaint();
+		revalidate();
 	}
 
 	private void drawxAxis(Graphics g) {
@@ -120,25 +127,33 @@ public class GraphPanel extends JPanel {
 		}
 	}
 
-	public void drawFunction(Graphics g, Function function, boolean drawWithDerivative) {
-		if(!this.function.equals(function)) {
-			graph = new Graph(this, function);
-		}
-		ValueTable valueTable = graph.getValueTable();
-		PixelCoordinate formerValue = valueTable.getPixelValueTable().get(0);
-		PixelCoordinate formerDerivativeValue = valueTable.getPixelDerivativeValueTable().get(0);
-		for(int i = 1; i<valueTable.getSize(); i++) {
-			PixelCoordinate currentValue = valueTable.getPixelValueTable().get(i);
-			PixelCoordinate currentDerivativeValue = valueTable.getPixelDerivativeValueTable().get(i);
-			if(drawWithDerivative) {
-				g.setColor(Color.cyan);
-				g.drawLine(formerDerivativeValue.getX(), formerDerivativeValue.getY(), currentDerivativeValue.getX(), currentDerivativeValue.getY());
-			}
-			g.setColor(Color.blue);
-			g.drawLine(formerValue.getX(), formerValue.getY(), currentValue.getX(), currentValue.getY());
+	public void setFunction(Function function) {
+		this.function = function;
+		repaint();
+		revalidate();
+	}
 
-			formerValue = currentValue;
-			formerDerivativeValue = currentDerivativeValue;
+	public void drawFunction(Graphics g) {
+		if(function != null) {
+			graph = new Graph(this, function);
+			ValueTable valueTable = graph.getValueTable();
+			PixelCoordinate formerValue = valueTable.getPixelValueTable().get(0);
+			PixelCoordinate formerDerivativeValue = valueTable.getPixelDerivativeValueTable().get(0);
+			for (int i = 1; i < valueTable.getSize(); i++) {
+				PixelCoordinate currentValue = valueTable.getPixelValueTable().get(i);
+				PixelCoordinate currentDerivativeValue = valueTable.getPixelDerivativeValueTable().get(i);
+				if (drawWithDerivative) {
+					g.setColor(Color.cyan);
+					g.drawLine(formerDerivativeValue.getX(), formerDerivativeValue.getY(), currentDerivativeValue.getX(), currentDerivativeValue.getY());
+				}
+				g.setColor(Color.blue);
+				g.drawLine(formerValue.getX(), formerValue.getY(), currentValue.getX(), currentValue.getY());
+
+				formerValue = currentValue;
+				formerDerivativeValue = currentDerivativeValue;
+			}
+			repaint();
+			revalidate();
 		}
 	}
 }

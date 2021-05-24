@@ -11,7 +11,7 @@ public class Graph {
 	public Graph(GraphPanel graphPanel, Function function) {
 		this.graphPanel = graphPanel;
 		this.function = function;
-		setResolutionOfxValues(0.01);
+		resolutionOfxValuesAsNumber = 0.01;
 		valueTable = new ValueTable(this);
 		updateValueTable();
 	}
@@ -46,23 +46,21 @@ public class Graph {
 	public void setResolutionOfxValues(double resolutionOfxValuesAsNumber) {
 		this.resolutionOfxValuesAsNumber = resolutionOfxValuesAsNumber;
 		updateValueTable();
-
 	}
 	
 	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues) {
 		switch(resolutionOfxValues) {
-			case ACCORDING_TO_PIXEL: resolutionOfxValuesAsNumber = 1.0 / graphPanel.getGridWidthInPixels();
+			case ACCORDING_TO_PIXEL: setResolutionOfxValues(1.0 / graphPanel.getGridWidthInPixels());
 			break;
-			case LOW: resolutionOfxValuesAsNumber = 10.0 / graphPanel.getGridWidthInPixels();
+			case LOW: setResolutionOfxValues(10.0 / graphPanel.getGridWidthInPixels());
 			break;
-			case HIGH: resolutionOfxValuesAsNumber = 1.0 / (3 * graphPanel.getGridWidthInPixels());
+			case HIGH: setResolutionOfxValues(1.0 / (3 * graphPanel.getGridWidthInPixels()));
 			break;
-			case CUSTOMIZED: resolutionOfxValuesAsNumber = 1.0;
+			case CUSTOMIZED: setResolutionOfxValues(1.0);
 			break;
 			default:
 				throw new IllegalStateException("Unexpected type: " + resolutionOfxValues);
 		}
-		updateValueTable();
 	}
 
 	public Function letFunction() {
