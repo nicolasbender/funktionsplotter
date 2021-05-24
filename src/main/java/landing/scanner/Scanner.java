@@ -20,6 +20,10 @@ public class Scanner {
         return tokenList;
     }
 
+    public String getFunctionAsString() {
+        return scannerHelper.getPreprocessed();
+    }
+
     public List<Token> buildTokenList(String partOfFunction) throws SymbolException, ParenthesisException {
         List<Token> tokenList = new ArrayList<>();
         Token currentToken;

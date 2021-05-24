@@ -18,7 +18,7 @@ public class ParserTest {
         Scanner scanner = new Scanner("-3*(x+1)^(x+2-1)/6");
         List<Token> tokenList = scanner.getTokenList();
         Parser parser = new Parser(tokenList);
-        double result = parser.calculateValueFor(2);
+        double result = parser.getRoot().doOperation(2);
         assertEquals(-13.5, result, 1E-6);
     }
 
@@ -27,7 +27,7 @@ public class ParserTest {
         Scanner scanner = new Scanner("1/x");
         List<Token> tokenList = scanner.getTokenList();
         Parser parser = new Parser(tokenList);
-        assertThrows(ArithmeticException.class, () -> parser.calculateValueFor(0));
+        assertThrows(ArithmeticException.class, () -> parser.getRoot().doOperation(0));
     }
 
     @Test

@@ -8,15 +8,14 @@ import landing.scanner.Token;
 import java.util.List;
 
 public class Parser {
-    RecursiveDescent recursiveDescent;
     ASTnode rootNode;
 
     public Parser(List<Token> tokenList) throws ParenthesisException, SyntaxException {
-        recursiveDescent = new RecursiveDescent(tokenList);
+        RecursiveDescent recursiveDescent = new RecursiveDescent(tokenList);
         rootNode = recursiveDescent.buildAST();
     }
 
-    public double calculateValueFor(double xValue) {
-        return rootNode.doOperation(xValue);
+    public ASTnode getRoot() {
+        return this.rootNode;
     }
 }
