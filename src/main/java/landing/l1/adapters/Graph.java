@@ -1,8 +1,6 @@
 package landing.l1.adapters;
 
 import landing.l2.applicationCode.function.Function;
-import landing.l3.domainCode.representation.PixelCoordinate;
-import landing.l3.domainCode.representation.ValueCoordinate;
 import landing.l0.plugins.ui.GraphPanel;
 
 public class Graph {
@@ -21,10 +19,7 @@ public class Graph {
 
 	public void updateValueTable() throws ArithmeticException {
 		valueTable.calculateValuesBetween(graphPanel.getValueToPixelMostLeft(), graphPanel.getValueToPixelMostRight());
-		valueTable.calculateDerivativeValues();
 	}
-
-
 
 	public double getResolutionOfxValues() {
 		return resolutionOfxValuesAsNumber;
