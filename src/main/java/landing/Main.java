@@ -1,6 +1,6 @@
 package landing;
 
-import landing.ui.MainWindow;
+import landing.l0.plugins.ui.MainWindow;
 
 public class Main {
 
