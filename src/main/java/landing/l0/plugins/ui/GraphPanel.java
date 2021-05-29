@@ -107,6 +107,15 @@ public class GraphPanel extends JPanel {
 	}
 
 	private void drawFunction(Graphics g) throws ArithmeticException {
+		ValueCoordinate formerValue;
+		PixelCoordinate pixelFormerValue;
+		ValueCoordinate formerDerivativeValue;
+		PixelCoordinate pixelFormerDerivativeValue;
+		ValueCoordinate currentValue;
+		PixelCoordinate pixelCurrentValue;
+		ValueCoordinate currentDerivativeValue;
+		PixelCoordinate pixelCurrentDerivativeValue;
+
 		if(function != null) {
 			if(graph == null) {
 				graph = new Graph(function, getValueOfPixelMostLeft(), getValueOfPixelMostRight());
@@ -116,15 +125,15 @@ public class GraphPanel extends JPanel {
 			}
 			ValueTable valueTable = graph.getValueTable();
 
-			ValueCoordinate formerValue = valueTable.getValueTable().get(0);
-			PixelCoordinate pixelFormerValue = convertValueToPixelCoordinate(formerValue);
-			ValueCoordinate formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
-			PixelCoordinate pixelFormerDerivativeValue = convertValueToPixelCoordinate(formerDerivativeValue);
+			formerValue = valueTable.getValueTable().get(0);
+			pixelFormerValue = convertValueToPixelCoordinate(formerValue);
+			formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
+			pixelFormerDerivativeValue = convertValueToPixelCoordinate(formerDerivativeValue);
 			for (int i = 1; i < valueTable.getSize(); i++) {
-				ValueCoordinate currentValue = valueTable.getValueTable().get(i);
-				PixelCoordinate pixelCurrentValue = convertValueToPixelCoordinate(currentValue);
-				ValueCoordinate currentDerivativeValue = valueTable.getDerivativeValueTable().get(i);
-				PixelCoordinate pixelCurrentDerivativeValue = convertValueToPixelCoordinate(currentDerivativeValue);
+				currentValue = valueTable.getValueTable().get(i);
+				pixelCurrentValue = convertValueToPixelCoordinate(currentValue);
+				currentDerivativeValue = valueTable.getDerivativeValueTable().get(i);
+				pixelCurrentDerivativeValue = convertValueToPixelCoordinate(currentDerivativeValue);
 				if (drawWithDerivative) {
 					g.setColor(Color.cyan);
 					g.drawLine(pixelFormerDerivativeValue.getX(), pixelFormerDerivativeValue.getY(), pixelCurrentDerivativeValue.getX(), pixelCurrentDerivativeValue.getY());
