@@ -1,7 +1,7 @@
 package landing.l0.plugins.ui;
 
-import landing.l1adapters.Graph;
-import landing.l1adapters.ValueTable;
+import landing.l1.adapters.Graph;
+import landing.l1.adapters.ValueTable;
 import landing.l2.applicationCode.function.Function;
 import landing.l3.domainCode.representation.PixelCoordinate;
 

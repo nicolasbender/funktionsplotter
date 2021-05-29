@@ -1,4 +1,4 @@
-package landing.l1adapters;
+package landing.l1.adapters;
 
 import landing.l3.domainCode.exceptions.ParenthesisException;
 import landing.l3.domainCode.exceptions.SymbolException;

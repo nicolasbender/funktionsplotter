@@ -1,4 +1,4 @@
-package landing.l1adapters;
+package landing.l1.adapters;
 
 import landing.l2.applicationCode.function.Function;
 import landing.l3.domainCode.representation.PixelCoordinate;

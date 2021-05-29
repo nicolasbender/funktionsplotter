@@ -1,4 +1,4 @@
-package landing.l1adapters;
+package landing.l1.adapters;
 
 public enum ResolutionOfxValues {
 	CUSTOMIZED("User-specific rendering"),

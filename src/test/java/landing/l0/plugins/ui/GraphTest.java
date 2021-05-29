@@ -1,6 +1,6 @@
 package landing.l0.plugins.ui;
 
-import landing.l1adapters.Graph;
+import landing.l1.adapters.Graph;
 import landing.l3.domainCode.representation.PixelCoordinate;
 import landing.l3.domainCode.representation.ValueCoordinate;
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package landing.l0.plugins.ui;
 
-import landing.l1adapters.UiController;
+import landing.l1.adapters.UiController;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
