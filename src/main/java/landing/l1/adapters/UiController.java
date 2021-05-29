@@ -8,8 +8,13 @@ import landing.l2.applicationCode.function.Function;
 import landing.l0.plugins.ui.GraphPanel;
 import landing.l0.plugins.ui.InputPanel;
 import landing.l0.plugins.ui.MainWindow;
+import landing.l3.domainCode.representation.PixelCoordinate;
 
 import javax.swing.*;
+import javax.swing.text.Position;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 
 public class UiController {
@@ -44,6 +49,41 @@ public class UiController {
         derivativeCheckBox.addActionListener(e -> runDerivativeAction());
         resolutionDropdown.addActionListener(e -> runResolutionDropdown());
         resolutionButton.addActionListener(e -> runResolutionButton());
+        graphPanel.addMouseListener(new MouseListener() {
+            PixelCoordinate oldPosition;
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                oldPosition = new PixelCoordinate(e.getX(), e.getY());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                PixelCoordinate newPosition = new PixelCoordinate(e.getX(), e.getY());
+                int differenceX = oldPosition.getX() - newPosition.getX();
+                int differenceY = oldPosition.getY() - newPosition.getY();
+
+                int newCenterX = graphPanel.getCenterOfCoordinateSystem().getX();
+                int newCenterY = graphPanel.getCenterOfCoordinateSystem().getY();
+
+                PixelCoordinate newCenter = new PixelCoordinate(newCenterX - differenceX, newCenterY - differenceY);
+                graphPanel.setCenterOfCoordinateSystem(newCenter);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 
     private void runCalculation() {

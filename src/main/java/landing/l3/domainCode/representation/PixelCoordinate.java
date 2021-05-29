@@ -9,7 +9,6 @@ public class PixelCoordinate implements Tuple<Integer> {
 	private final Integer y;
 
 	public PixelCoordinate(Integer x, Integer y) {
-		//TODO check if x and y are valid values
 		this.x = x;
 		this.y = y;
 	}
@@ -35,5 +34,10 @@ public class PixelCoordinate implements Tuple<Integer> {
 	@Override
 	public int hashCode() {
 		return Objects.hash(x, y);
+	}
+
+	@Override
+	public String toString() {
+		return "getX(): " + getX() + "; getY(): "+ getY();
 	}
 }
