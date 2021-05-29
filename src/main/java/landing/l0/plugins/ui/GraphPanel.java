@@ -4,6 +4,7 @@ import landing.l1.adapters.Graph;
 import landing.l1.adapters.ValueTable;
 import landing.l2.applicationCode.function.Function;
 import landing.l3.domainCode.representation.PixelCoordinate;
+import landing.l3.domainCode.representation.ValueCoordinate;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -141,23 +142,45 @@ public class GraphPanel extends JPanel {
 		if(function != null) {
 			graph = new Graph(this, function);
 			ValueTable valueTable = graph.getValueTable();
-			PixelCoordinate formerValue = valueTable.getPixelValueTable().get(0);
-			PixelCoordinate formerDerivativeValue = valueTable.getPixelDerivativeValueTable().get(0);
+			ValueCoordinate formerValue = valueTable.getValueTable().get(0);
+			PixelCoordinate pixelFormerValue = convertValueToPixelCoordinate(formerValue);
+			ValueCoordinate formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
+			PixelCoordinate pixelFormerDerivativeValue = convertValueToPixelCoordinate(formerDerivativeValue);
 			for (int i = 1; i < valueTable.getSize(); i++) {
-				PixelCoordinate currentValue = valueTable.getPixelValueTable().get(i);
-				PixelCoordinate currentDerivativeValue = valueTable.getPixelDerivativeValueTable().get(i);
+				ValueCoordinate currentValue = valueTable.getValueTable().get(i);
+				PixelCoordinate pixelCurrentValue = convertValueToPixelCoordinate(currentValue);
+				ValueCoordinate currentDerivativeValue = valueTable.getDerivativeValueTable().get(i);
+				PixelCoordinate pixelCurrentDerivativeValue = convertValueToPixelCoordinate(currentDerivativeValue);
 				if (drawWithDerivative) {
 					g.setColor(Color.cyan);
-					g.drawLine(formerDerivativeValue.getX(), formerDerivativeValue.getY(), currentDerivativeValue.getX(), currentDerivativeValue.getY());
+					g.drawLine(pixelFormerDerivativeValue.getX(), pixelFormerDerivativeValue.getY(), pixelCurrentDerivativeValue.getX(), pixelCurrentDerivativeValue.getY());
 				}
 				g.setColor(Color.blue);
-				g.drawLine(formerValue.getX(), formerValue.getY(), currentValue.getX(), currentValue.getY());
+				g.drawLine(pixelFormerValue.getX(), pixelFormerValue.getY(), pixelCurrentValue.getX(), pixelCurrentValue.getY());
 
-				formerValue = currentValue;
-				formerDerivativeValue = currentDerivativeValue;
+				pixelFormerValue = pixelCurrentValue;
+				pixelFormerDerivativeValue = pixelCurrentDerivativeValue;
 			}
 			repaint();
 			revalidate();
 		}
+	}
+
+	public PixelCoordinate convertValueToPixelCoordinate(ValueCoordinate valueCoordinate) {
+		Integer x = getCenterOfCoordinateSystem().getX() + (int) (valueCoordinate.getX()*getGridWidthInPixels());
+		Integer y = getCenterOfCoordinateSystem().getY() - (int) (valueCoordinate.getY()*getGridWidthInPixels());
+		return new PixelCoordinate(x, y);
+	}
+
+	public ValueCoordinate getValueToPixelMostLeft() {
+		Double x = -(double)getCenterOfCoordinateSystem().getX() / getGridWidthInPixels();
+		Double y = -(double)getCenterOfCoordinateSystem().getY() / getGridWidthInPixels();
+		return new ValueCoordinate(x, y);
+	}
+
+	public ValueCoordinate getValueToPixelMostRight() {
+		Double x = (double)(getWidth() - getCenterOfCoordinateSystem().getX()) / getGridWidthInPixels();
+		Double y = (double)(getHeight() - getCenterOfCoordinateSystem().getY()) / getGridWidthInPixels();
+		return new ValueCoordinate(x, y);
 	}
 }

@@ -1,6 +1,5 @@
 package landing.l1.adapters;
 
-import landing.l3.domainCode.representation.PixelCoordinate;
 import landing.l3.domainCode.representation.ValueCoordinate;
 
 import java.util.ArrayList;
@@ -8,17 +7,13 @@ import java.util.List;
 
 public class ValueTable {
 	private final List<ValueCoordinate> valueTable;
-	private final List<PixelCoordinate> pixelValueTable;
 	private final List<ValueCoordinate> derivativeValueTable;
-	private final List<PixelCoordinate> pixelDerivativeValueTable;
 	private final Graph graph;
 	
 	public ValueTable(Graph graph) {
 		this.graph = graph;
 		this.valueTable = new ArrayList<>();
-		this.pixelValueTable = new ArrayList<>();
 		this.derivativeValueTable = new ArrayList<>();
-		this.pixelDerivativeValueTable = new ArrayList<>();
 	}
 
 	public List<ValueCoordinate> getValueTable() {
@@ -29,17 +24,7 @@ public class ValueTable {
 		return derivativeValueTable;
 	}
 
-	public List<PixelCoordinate> getPixelValueTable() {
-		return pixelValueTable;
-	}
-
-	public List<PixelCoordinate> getPixelDerivativeValueTable() {
-		return pixelDerivativeValueTable;
-	}
-
-	public void calculateValues() throws ArithmeticException {
-		ValueCoordinate valueMostLeft = graph.getValueToPixelMostLeft();
-		ValueCoordinate valueMostRight = graph.getValueToPixelMostRight();
+	public void calculateValuesBetween(ValueCoordinate valueMostLeft, ValueCoordinate valueMostRight) throws ArithmeticException {
 		double xResolution = graph.getResolutionOfxValues();
 		for(double currentX = valueMostLeft.getX(); currentX < valueMostRight.getX(); currentX += xResolution) {
 			double currentY = graph.letFunction().calculateValueOf(currentX);
@@ -49,12 +34,10 @@ public class ValueTable {
 
 	private void addValueToTable(ValueCoordinate currentValue) {
 		this.valueTable.add(currentValue);
-		this.pixelValueTable.add(graph.convertValueToPixelCoordinate(currentValue));
 	}
 
 	private void addValueToDerivativeTable(ValueCoordinate currentValue) {
 		this.derivativeValueTable.add(currentValue);
-		this.pixelDerivativeValueTable.add(graph.convertValueToPixelCoordinate(currentValue));
 	}
 
 	public void calculateDerivativeValues() {

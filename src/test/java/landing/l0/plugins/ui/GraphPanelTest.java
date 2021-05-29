@@ -1,6 +1,5 @@
 package landing.l0.plugins.ui;
 
-import landing.l1.adapters.Graph;
 import landing.l3.domainCode.representation.PixelCoordinate;
 import landing.l3.domainCode.representation.ValueCoordinate;
 import org.junit.Before;
@@ -16,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 @ExtendWith(MockitoExtension.class)
-public class GraphTest {
+public class GraphPanelTest {
     @Mock
     GraphPanel graphPanel;
 
@@ -31,26 +30,23 @@ public class GraphTest {
 
     @Test
     public void testConvertValueToPixel() {
-        Graph graph = new Graph(graphPanel, null);
-        PixelCoordinate pixelCoordinateCenter = graph.convertValueToPixelCoordinate(new ValueCoordinate(0.0,0.0));
+        PixelCoordinate pixelCoordinateCenter = graphPanel.convertValueToPixelCoordinate(new ValueCoordinate(0.0,0.0));
         assertEquals(pixelCoordinateCenter, new PixelCoordinate(400, 300));
-        PixelCoordinate pixelCoordinateUpperLeft = graph.convertValueToPixelCoordinate(new ValueCoordinate(-2.5,4.0));
+        PixelCoordinate pixelCoordinateUpperLeft = graphPanel.convertValueToPixelCoordinate(new ValueCoordinate(-2.5,4.0));
         assertEquals(pixelCoordinateUpperLeft, new PixelCoordinate(275, 100));
-        PixelCoordinate pixelCoordinateLowerRight = graph.convertValueToPixelCoordinate(new ValueCoordinate(3.2,-1.378));
+        PixelCoordinate pixelCoordinateLowerRight = graphPanel.convertValueToPixelCoordinate(new ValueCoordinate(3.2,-1.378));
         assertEquals(pixelCoordinateLowerRight, new PixelCoordinate(560, 368));
     }
 
     @Test
     public void testGetValueToPixelMostLeft() {
-        Graph graph = new Graph(graphPanel, null);
-        ValueCoordinate mostLeft = graph.getValueToPixelMostLeft();
+        ValueCoordinate mostLeft = graphPanel.getValueToPixelMostLeft();
         assertEquals(mostLeft, new ValueCoordinate(-8.0, -6.0));
     }
 
     @Test
     public void testGetValueToPixelMostRight() {
-        Graph graph = new Graph(graphPanel, null);
-        ValueCoordinate mostRight = graph.getValueToPixelMostRight();
+        ValueCoordinate mostRight = graphPanel.getValueToPixelMostRight();
         assertEquals(mostRight, new ValueCoordinate(12.0, 14.0));
     }
 }
