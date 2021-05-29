@@ -1,6 +1,7 @@
 package landing.l0.plugins.ui;
 
 import landing.l1.adapters.Graph;
+import landing.l1.adapters.ResolutionOfxValues;
 import landing.l1.adapters.ValueTable;
 import landing.l2.applicationCode.function.Function;
 import landing.l3.domainCode.representation.PixelCoordinate;
@@ -21,7 +22,7 @@ public class GraphPanel extends JPanel {
 
 	public GraphPanel() {
 		setGridWidthInPixels(100);
-		drawWithDerivative = true;
+		drawWithDerivative = false;
 		createPanel();
 	}
 
@@ -193,6 +194,18 @@ public class GraphPanel extends JPanel {
 		createPanel();
 	}
 
+	public void setResolutionOfxValues(double resolutionOfxValues) {
+		graph.setResolutionOfxValues(resolutionOfxValues);
+	}
+
+	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues) {
+		graph.setResolutionOfxValues(resolutionOfxValues, gridWidthInPixels);
+	}
+
+	public double getResolutionOfxValues() {
+		return graph.getResolutionOfxValues();
+	}
+
 	public PixelCoordinate getCenterOfCoordinateSystem() {
 		return centerOfCoordinateSystem;
 	}
@@ -204,6 +217,11 @@ public class GraphPanel extends JPanel {
 
 	public void setFunction(Function function) {
 		this.function = function;
+		createPanel();
+	}
+
+	public void setDrawWithDerivative(boolean drawWithDerivative) {
+		this.drawWithDerivative = drawWithDerivative;
 		createPanel();
 	}
 }

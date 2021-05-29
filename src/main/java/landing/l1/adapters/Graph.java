@@ -30,15 +30,19 @@ public class Graph {
 	}
 
 	public void setResolutionOfxValues(double resolutionOfxValuesAsNumber) {
-		this.resolutionOfxValuesAsNumber = resolutionOfxValuesAsNumber;
-		updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
+		if(resolutionOfxValuesAsNumber <= 0 || resolutionOfxValuesAsNumber > 10) {
+			throw new NumberFormatException();
+		} else {
+			this.resolutionOfxValuesAsNumber = resolutionOfxValuesAsNumber;
+			updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
+		}
 	}
 	
 	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues, int gridWidthInPixels) {
 		switch(resolutionOfxValues) {
 			case ACCORDING_TO_PIXEL: setResolutionOfxValues(1.0 / gridWidthInPixels);
 			break;
-			case LOW: setResolutionOfxValues(10.0 / gridWidthInPixels);
+			case LOW: setResolutionOfxValues(50.0 / gridWidthInPixels);
 			break;
 			case HIGH: setResolutionOfxValues(1.0 / (3 * gridWidthInPixels));
 			break;

@@ -10,8 +10,8 @@ import javax.swing.JFrame;
 public class MainWindow extends JFrame {
 	private String title;
 	private InputPanel inputPanel;
+	private OptionPanel optionPanel;
 	private GraphPanel graphPanel;
-	private UiController uiController;
 	private static final Dimension MINIMUM_SIZE = new Dimension(800,600);
 	
 	public MainWindow(){
@@ -30,12 +30,16 @@ public class MainWindow extends JFrame {
 	public GraphPanel getGraphPanel() {
 		return graphPanel;
 	}
+
+	public OptionPanel getOptionPanel() {
+		return optionPanel;
+	}
 	
 	private void initUI() {
 		createPanels();
 		createLayout();
 		createWindow();
-		uiController = new UiController(this);
+		new UiController(this);
 	}
 
 	private void createWindow() {
@@ -48,12 +52,14 @@ public class MainWindow extends JFrame {
 	
 	private void createPanels() {
 		this.inputPanel = new InputPanel();
+		this.optionPanel = new OptionPanel();
 		this.graphPanel = new GraphPanel();
 	}
 	
 	private void createLayout() {
 		this.setLayout(new BorderLayout());
 		this.add(inputPanel, BorderLayout.NORTH);
+		this.add(optionPanel, BorderLayout.EAST);
 		this.add(graphPanel, BorderLayout.CENTER);
 	}
 }

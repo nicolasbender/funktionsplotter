@@ -9,7 +9,6 @@ public class InputPanel extends JPanel {
 	private static final String LABEL_FOR_INPUTFIELD = "f(x) = ";
 	private static final String BUTTON_TEXT = "Calculate!";
 	private static final int COLUMNS_IN_TEXTFIELD = 40;
-	private JLabel labelForInputField;
 	private JTextField inputField;
 	private JButton calculateButton;
 	
@@ -24,8 +23,7 @@ public class InputPanel extends JPanel {
 	}
 
 	private void createLabelForInputField() {
-		labelForInputField = new JLabel(LABEL_FOR_INPUTFIELD);
-		this.add(labelForInputField);
+		this.add(new JLabel(LABEL_FOR_INPUTFIELD));
 	}
 
 	private void createInputField() {
