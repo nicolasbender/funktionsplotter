@@ -1,5 +1,7 @@
 package landing.l3.domainCode.scanner;
 
+import landing.l4.abstractionCode.TokenType;
+
 public class Token {
     private final TokenType tokenType;
     private final int position;

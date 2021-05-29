@@ -4,7 +4,7 @@ import landing.l3.domainCode.ast.*;
 import landing.l3.domainCode.exceptions.ParenthesisException;
 import landing.l3.domainCode.exceptions.SyntaxException;
 import landing.l3.domainCode.scanner.Token;
-import landing.l3.domainCode.scanner.TokenType;
+import landing.l4.abstractionCode.TokenType;
 import landing.l4.abstractionCode.ASTnode;
 
 import java.util.List;

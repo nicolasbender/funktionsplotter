@@ -1,4 +1,4 @@
-package landing.l3.domainCode.scanner;
+package landing.l4.abstractionCode;
 
 public enum TokenType {
     END_OF_TERM,

@@ -1,6 +1,6 @@
 package landing.l3.domainCode.ast;
 
-import landing.l3.domainCode.scanner.TokenType;
+import landing.l4.abstractionCode.TokenType;
 import landing.l4.abstractionCode.ASTnode;
 import landing.l4.abstractionCode.ASTnodeBinary;
 
