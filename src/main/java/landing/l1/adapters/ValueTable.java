@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValueTable {
-	private final List<ValueCoordinate> valueTable;
+	private List<ValueCoordinate> valueTable;
 	private List<ValueCoordinate> derivativeValueTable;
 	private final Graph graph;
 	
 	public ValueTable(Graph graph) {
 		this.graph = graph;
-		this.valueTable = new ArrayList<>();
 	}
 
 	public List<ValueCoordinate> getValueTable() {
@@ -24,6 +23,7 @@ public class ValueTable {
 	}
 
 	public void calculateValuesBetween(ValueCoordinate valueMostLeft, ValueCoordinate valueMostRight) throws ArithmeticException {
+		this.valueTable = new ArrayList<>();
 		double xResolution = graph.getResolutionOfxValues();
 
 		for(double currentX = valueMostLeft.getX(); currentX <= valueMostRight.getX(); currentX += xResolution) {

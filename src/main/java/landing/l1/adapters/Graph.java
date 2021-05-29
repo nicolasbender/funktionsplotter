@@ -1,24 +1,28 @@
 package landing.l1.adapters;
 
 import landing.l2.applicationCode.function.Function;
-import landing.l0.plugins.ui.GraphPanel;
+import landing.l3.domainCode.representation.ValueCoordinate;
 
 public class Graph {
 	private final ValueTable valueTable;
-	private final GraphPanel graphPanel;
+	private ValueCoordinate valueOfPixelMostLeft;
+	private ValueCoordinate valueOfPixelMostRight;
 	private double resolutionOfxValuesAsNumber;
-	private final Function function;
+	private Function function;
 	
-	public Graph(GraphPanel graphPanel, Function function) {
-		this.graphPanel = graphPanel;
+	public Graph(Function function, ValueCoordinate valueOfPixelMostLeft, ValueCoordinate valueOfPixelMostRight) {
 		this.function = function;
+		this.valueOfPixelMostLeft = valueOfPixelMostLeft;
+		this.valueOfPixelMostRight = valueOfPixelMostRight;
 		resolutionOfxValuesAsNumber = 0.01;
 		valueTable = new ValueTable(this);
-		updateValueTable();
+		updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
 	}
 
-	public void updateValueTable() throws ArithmeticException {
-		valueTable.calculateValuesBetween(graphPanel.getValueToPixelMostLeft(), graphPanel.getValueToPixelMostRight());
+	public void updateValueTable(ValueCoordinate valueOfPixelMostLeft, ValueCoordinate valueOfPixelMostRight) throws ArithmeticException {
+		this.valueOfPixelMostLeft = valueOfPixelMostLeft;
+		this.valueOfPixelMostRight = valueOfPixelMostRight;
+		valueTable.calculateValuesBetween(valueOfPixelMostLeft, valueOfPixelMostRight);
 	}
 
 	public double getResolutionOfxValues() {
@@ -27,18 +31,18 @@ public class Graph {
 
 	public void setResolutionOfxValues(double resolutionOfxValuesAsNumber) {
 		this.resolutionOfxValuesAsNumber = resolutionOfxValuesAsNumber;
-		updateValueTable();
+		updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
 	}
 	
-	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues) {
+	public void setResolutionOfxValues(ResolutionOfxValues resolutionOfxValues, int gridWidthInPixels) {
 		switch(resolutionOfxValues) {
-			case ACCORDING_TO_PIXEL: setResolutionOfxValues(1.0 / graphPanel.getGridWidthInPixels());
+			case ACCORDING_TO_PIXEL: setResolutionOfxValues(1.0 / gridWidthInPixels);
 			break;
-			case LOW: setResolutionOfxValues(10.0 / graphPanel.getGridWidthInPixels());
+			case LOW: setResolutionOfxValues(10.0 / gridWidthInPixels);
 			break;
-			case HIGH: setResolutionOfxValues(1.0 / (3 * graphPanel.getGridWidthInPixels()));
+			case HIGH: setResolutionOfxValues(1.0 / (3 * gridWidthInPixels));
 			break;
-			case CUSTOMIZED: setResolutionOfxValues(1.0);
+			case CUSTOMIZED: setResolutionOfxValues(0.01);
 			break;
 			default:
 				throw new IllegalStateException("Unexpected type: " + resolutionOfxValues);
@@ -47,6 +51,10 @@ public class Graph {
 
 	public Function letFunction() {
 		return function;
+	}
+
+	public void setFunction(Function function) {
+		this.function = function;
 	}
 
 	public ValueTable getValueTable() {

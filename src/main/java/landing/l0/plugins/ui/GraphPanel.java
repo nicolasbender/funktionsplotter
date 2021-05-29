@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 
 public class GraphPanel extends JPanel {
 	private static final int MINIMUM_GRID_WIDTH = 5;
+	private Graph graph;
 	private int gridWidthInPixels;
 	private PixelCoordinate centerOfCoordinateSystem;
-	private Graph graph;
 	private Function function;
 	private boolean drawWithDerivative;
 
@@ -24,6 +24,10 @@ public class GraphPanel extends JPanel {
 		drawWithDerivative = true;
 		createPanel();
 	}
+
+	/*
+	* Drawing methods
+	* */
 
 	private void createPanel() {
 		repaint();
@@ -42,18 +46,12 @@ public class GraphPanel extends JPanel {
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
-	public void createAxesAndGrid(Graphics g) {
+	private void createAxesAndGrid(Graphics g) {
 		if(this.centerOfCoordinateSystem == null) {
 			determineInitialCenterOfCoordinateSystem();
 		}
 		createGrid(g);
 		createAxes(g);
-	}
-
-	private void determineInitialCenterOfCoordinateSystem() {
-		int halfOfxAxis = this.getWidth() / 2;
-		int halfOfyAxis = this.getHeight() / 2;
-		setCenterOfCoordinateSystem(new PixelCoordinate(halfOfxAxis, halfOfyAxis));
 	}
 
 	private void createGrid(Graphics g) {
@@ -66,30 +64,6 @@ public class GraphPanel extends JPanel {
 		drawyAxis(g);
 	}
 
-	public int getGridWidthInPixels() {
-		return gridWidthInPixels;
-	}
-
-	public void setGridWidthInPixels(int gridWidthInPixels) {
-		if(gridWidthInPixels >= MINIMUM_GRID_WIDTH) {
-			this.gridWidthInPixels = gridWidthInPixels;
-		} else{
-			throw new IllegalArgumentException("GridWidth has to be greater than "+MINIMUM_GRID_WIDTH+": " + gridWidthInPixels);
-		}
-		repaint();
-		revalidate();
-	}
-
-	public PixelCoordinate getCenterOfCoordinateSystem() {
-		return centerOfCoordinateSystem;
-	}
-
-	public void setCenterOfCoordinateSystem(PixelCoordinate centerOfCoordinateSystem) {
-		this.centerOfCoordinateSystem = centerOfCoordinateSystem;
-		repaint();
-		revalidate();
-	}
-
 	private void drawxAxis(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.drawLine(0, getCenterOfCoordinateSystem().getY(), this.getWidth(), getCenterOfCoordinateSystem().getY());
@@ -98,7 +72,7 @@ public class GraphPanel extends JPanel {
 	private void drawxAxisMarks(Graphics g) {
 		int upperBorder = 0;
 		int lowerBorder = this.getHeight();
-		
+
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getX()
 				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getX() / getGridWidthInPixels() + 1; i++) {
@@ -107,7 +81,7 @@ public class GraphPanel extends JPanel {
 						getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, lowerBorder);
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX() + getGridWidthInPixels() * i,
 						getCenterOfCoordinateSystem().getY() );
-				}
+			}
 		}
 	}
 
@@ -119,7 +93,7 @@ public class GraphPanel extends JPanel {
 	private void drawyAxisMarks(Graphics g) {
 		int leftBorder = 0;
 		int rightBorder = this.getWidth();
-		
+
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getY()
 				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getY() / getGridWidthInPixels() + 1; i++) {
@@ -132,16 +106,16 @@ public class GraphPanel extends JPanel {
 		}
 	}
 
-	public void setFunction(Function function) {
-		this.function = function;
-		repaint();
-		revalidate();
-	}
-
-	public void drawFunction(Graphics g) throws ArithmeticException {
+	private void drawFunction(Graphics g) throws ArithmeticException {
 		if(function != null) {
-			graph = new Graph(this, function);
+			if(graph == null) {
+				graph = new Graph(function, getValueOfPixelMostLeft(), getValueOfPixelMostRight());
+			} else {
+				graph.setFunction(function);
+				graph.updateValueTable(getValueOfPixelMostLeft(), getValueOfPixelMostRight());
+			}
 			ValueTable valueTable = graph.getValueTable();
+
 			ValueCoordinate formerValue = valueTable.getValueTable().get(0);
 			PixelCoordinate pixelFormerValue = convertValueToPixelCoordinate(formerValue);
 			ValueCoordinate formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
@@ -161,9 +135,18 @@ public class GraphPanel extends JPanel {
 				pixelFormerValue = pixelCurrentValue;
 				pixelFormerDerivativeValue = pixelCurrentDerivativeValue;
 			}
-			repaint();
-			revalidate();
+			createPanel();
 		}
+	}
+
+	/*
+	 * Helper
+	 * */
+
+	private void determineInitialCenterOfCoordinateSystem() {
+		int halfOfxAxis = this.getWidth() / 2;
+		int halfOfyAxis = this.getHeight() / 2;
+		setCenterOfCoordinateSystem(new PixelCoordinate(halfOfxAxis, halfOfyAxis));
 	}
 
 	public PixelCoordinate convertValueToPixelCoordinate(ValueCoordinate valueCoordinate) {
@@ -172,15 +155,46 @@ public class GraphPanel extends JPanel {
 		return new PixelCoordinate(x, y);
 	}
 
-	public ValueCoordinate getValueToPixelMostLeft() {
+	public ValueCoordinate getValueOfPixelMostLeft() {
 		Double x = -(double)getCenterOfCoordinateSystem().getX() / getGridWidthInPixels();
 		Double y = -(double)getCenterOfCoordinateSystem().getY() / getGridWidthInPixels();
 		return new ValueCoordinate(x, y);
 	}
 
-	public ValueCoordinate getValueToPixelMostRight() {
+	public ValueCoordinate getValueOfPixelMostRight() {
 		Double x = (double)(getWidth() - getCenterOfCoordinateSystem().getX()) / getGridWidthInPixels();
 		Double y = (double)(getHeight() - getCenterOfCoordinateSystem().getY()) / getGridWidthInPixels();
 		return new ValueCoordinate(x, y);
+	}
+
+	/*
+	 * Getter and Setter
+	 * */
+
+	public int getGridWidthInPixels() {
+		return gridWidthInPixels;
+	}
+
+	public void setGridWidthInPixels(int gridWidthInPixels) {
+		if(gridWidthInPixels >= MINIMUM_GRID_WIDTH) {
+			this.gridWidthInPixels = gridWidthInPixels;
+		} else{
+			throw new IllegalArgumentException("GridWidth has to be greater than "+MINIMUM_GRID_WIDTH+": " + gridWidthInPixels);
+		}
+		createPanel();
+	}
+
+	public PixelCoordinate getCenterOfCoordinateSystem() {
+		return centerOfCoordinateSystem;
+	}
+
+	public void setCenterOfCoordinateSystem(PixelCoordinate centerOfCoordinateSystem) {
+		this.centerOfCoordinateSystem = centerOfCoordinateSystem;
+		createPanel();
+	}
+
+	public void setFunction(Function function) {
+		this.function = function;
+		createPanel();
 	}
 }

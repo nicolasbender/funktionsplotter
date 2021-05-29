@@ -39,14 +39,14 @@ public class GraphPanelTest {
     }
 
     @Test
-    public void testGetValueToPixelMostLeft() {
-        ValueCoordinate mostLeft = graphPanel.getValueToPixelMostLeft();
+    public void testGetValueOfPixelMostLeft() {
+        ValueCoordinate mostLeft = graphPanel.getValueOfPixelMostLeft();
         assertEquals(mostLeft, new ValueCoordinate(-8.0, -6.0));
     }
 
     @Test
-    public void testGetValueToPixelMostRight() {
-        ValueCoordinate mostRight = graphPanel.getValueToPixelMostRight();
+    public void testGetValueOfPixelMostRight() {
+        ValueCoordinate mostRight = graphPanel.getValueOfPixelMostRight();
         assertEquals(mostRight, new ValueCoordinate(12.0, 14.0));
     }
 }
