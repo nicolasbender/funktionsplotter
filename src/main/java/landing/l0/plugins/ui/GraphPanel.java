@@ -76,10 +76,10 @@ public class GraphPanel extends JPanel {
 
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getX()
-				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getX() / getGridWidthInPixels() + 1; i++) {
+				/ getGridWidthInPixels(); i < (getWidth() - getCenterOfCoordinateSystem().getX()) / getGridWidthInPixels() + 1; i++) {
 			if (i != 0) {
-				g.drawLine(getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, upperBorder,
-						getCenterOfCoordinateSystem().getX() - getGridWidthInPixels() * i, lowerBorder);
+				g.drawLine(getCenterOfCoordinateSystem().getX() + getGridWidthInPixels() * i, upperBorder,
+						getCenterOfCoordinateSystem().getX() + getGridWidthInPixels() * i, lowerBorder);
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX() + getGridWidthInPixels() * i,
 						getCenterOfCoordinateSystem().getY() );
 			}
@@ -97,12 +97,12 @@ public class GraphPanel extends JPanel {
 
 		g.setColor(Color.LIGHT_GRAY);
 		for (int i = -getCenterOfCoordinateSystem().getY()
-				/ getGridWidthInPixels(); i < getCenterOfCoordinateSystem().getY() / getGridWidthInPixels() + 1; i++) {
+				/ getGridWidthInPixels(); i < (getHeight() - getCenterOfCoordinateSystem().getY()) / getGridWidthInPixels() + 1; i++) {
 			if (i != 0) {
-				g.drawLine(leftBorder, getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i, rightBorder,
-						getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i);
+				g.drawLine(leftBorder, getCenterOfCoordinateSystem().getY() + getGridWidthInPixels() * i, rightBorder,
+						getCenterOfCoordinateSystem().getY() + getGridWidthInPixels() * i);
 				g.drawString("" + i, getCenterOfCoordinateSystem().getX(),
-						getCenterOfCoordinateSystem().getY() - getGridWidthInPixels() * i);
+						getCenterOfCoordinateSystem().getY() + getGridWidthInPixels() * i);
 			}
 		}
 	}
