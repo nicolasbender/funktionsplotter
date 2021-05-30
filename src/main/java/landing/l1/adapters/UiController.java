@@ -12,6 +12,7 @@ import landing.l3.domainCode.representation.PixelCoordinate;
 
 import javax.swing.*;
 import javax.swing.text.Position;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -52,13 +53,12 @@ public class UiController {
         graphPanel.addMouseListener(new MouseListener() {
             PixelCoordinate oldPosition;
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
+            public void mouseClicked(MouseEvent e) {}
 
             @Override
             public void mousePressed(MouseEvent e) {
                 oldPosition = new PixelCoordinate(e.getX(), e.getY());
+                mainWindow.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             }
 
             @Override
@@ -72,17 +72,14 @@ public class UiController {
 
                 PixelCoordinate newCenter = new PixelCoordinate(newCenterX - differenceX, newCenterY - differenceY);
                 graphPanel.setCenterOfCoordinateSystem(newCenter);
+                mainWindow.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
+            public void mouseEntered(MouseEvent e) {}
 
             @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
+            public void mouseExited(MouseEvent e) {}
         });
     }
 
