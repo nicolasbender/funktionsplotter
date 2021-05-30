@@ -87,29 +87,37 @@ public class UiController {
     }
 
     private void runCalculation() {
-        try {
-            Function function = new Function(inputPanel.getInputTerm());
-            graphPanel.setFunction(function);
-        } catch (ParenthesisException e) {
+        String inputTerm = inputPanel.getInputTerm();
+        if(inputTerm.equals("")) {
             JOptionPane.showMessageDialog(mainWindow,
-                    e.getMessage(),
-                    "Parenthesis Error",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (SymbolException e) {
-            JOptionPane.showMessageDialog(mainWindow,
-                    e.getMessage(),
-                    "Symbol Error",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (SyntaxException e) {
-            JOptionPane.showMessageDialog(mainWindow,
-                    e.getMessage(),
+                    "Please input term first",
                     "Syntax Error",
                     JOptionPane.ERROR_MESSAGE);
-        } catch (ArithmeticException e) {
-            JOptionPane.showMessageDialog(mainWindow,
-                    e.getMessage(),
-                    "Arithmetic Error",
-                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Function function = new Function(inputTerm);
+                graphPanel.setFunction(function);
+            } catch (ParenthesisException e) {
+                JOptionPane.showMessageDialog(mainWindow,
+                        e.getMessage(),
+                        "Parenthesis Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SymbolException e) {
+                JOptionPane.showMessageDialog(mainWindow,
+                        e.getMessage(),
+                        "Symbol Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SyntaxException e) {
+                JOptionPane.showMessageDialog(mainWindow,
+                        e.getMessage(),
+                        "Syntax Error",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (ArithmeticException e) {
+                JOptionPane.showMessageDialog(mainWindow,
+                        e.getMessage(),
+                        "Arithmetic Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -119,9 +127,13 @@ public class UiController {
 
     private void runZoomInPanel(MouseWheelEvent e) {
         if(e.getWheelRotation() < 0) {
-            graphPanel.setGridWidthInPixels(graphPanel.getGridWidthInPixels() + e.getScrollAmount());
+            try {
+                graphPanel.setGridWidthInPixels(graphPanel.getGridWidthInPixels() + e.getScrollAmount());
+            } catch(IllegalArgumentException ignored) {}
         } else {
-            graphPanel.setGridWidthInPixels(graphPanel.getGridWidthInPixels() - e.getScrollAmount());
+            try {
+                graphPanel.setGridWidthInPixels(graphPanel.getGridWidthInPixels() - e.getScrollAmount());
+            } catch(IllegalArgumentException ignored) {}
         }
     }
 
