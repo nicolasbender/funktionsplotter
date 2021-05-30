@@ -1,6 +1,7 @@
 package landing.l0.plugins.ui;
 
 import landing.l1.adapters.Graph;
+import landing.l1.adapters.GraphPanelAdapter;
 import landing.l1.adapters.ResolutionOfxValues;
 import landing.l1.adapters.ValueTable;
 import landing.l2.applicationCode.function.Function;
@@ -15,12 +16,14 @@ import javax.swing.JPanel;
 public class GraphPanel extends JPanel {
 	private static final int MINIMUM_GRID_WIDTH = 5;
 	private Graph graph;
+	private GraphPanelAdapter graphPanelAdapter;
 	private int gridWidthInPixels;
 	private PixelCoordinate centerOfCoordinateSystem;
 	private Function function;
 	private boolean drawWithDerivative;
 
 	public GraphPanel() {
+		graphPanelAdapter = new GraphPanelAdapter(this);
 		setGridWidthInPixels(100);
 		drawWithDerivative = false;
 		createPanel();
@@ -49,7 +52,7 @@ public class GraphPanel extends JPanel {
 
 	private void createAxesAndGrid(Graphics g) {
 		if(this.centerOfCoordinateSystem == null) {
-			determineInitialCenterOfCoordinateSystem();
+			graphPanelAdapter.determineInitialCenterOfCoordinateSystem();
 		}
 		createGrid(g);
 		createAxes(g);
@@ -117,24 +120,26 @@ public class GraphPanel extends JPanel {
 		ValueCoordinate currentDerivativeValue;
 		PixelCoordinate pixelCurrentDerivativeValue;
 
+		ValueCoordinate valueOfPixelMostLeft = graphPanelAdapter.getValueOfPixelMostLeft();
+		ValueCoordinate valueOfPixelMostRight = graphPanelAdapter.getValueOfPixelMostRight();
 		if(function != null) {
 			if(graph == null) {
-				graph = new Graph(function, getValueOfPixelMostLeft(), getValueOfPixelMostRight());
+				graph = new Graph(function, valueOfPixelMostLeft, valueOfPixelMostRight);
 			} else {
 				graph.setFunction(function);
-				graph.updateValueTable(getValueOfPixelMostLeft(), getValueOfPixelMostRight());
+				graph.updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
 			}
 			ValueTable valueTable = graph.getValueTable();
 
 			formerValue = valueTable.getValueTable().get(0);
-			pixelFormerValue = convertValueToPixelCoordinate(formerValue);
+			pixelFormerValue = graphPanelAdapter.convertValueToPixelCoordinate(formerValue);
 			formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
-			pixelFormerDerivativeValue = convertValueToPixelCoordinate(formerDerivativeValue);
+			pixelFormerDerivativeValue = graphPanelAdapter.convertValueToPixelCoordinate(formerDerivativeValue);
 			for (int i = 1; i < valueTable.getSize(); i++) {
 				currentValue = valueTable.getValueTable().get(i);
-				pixelCurrentValue = convertValueToPixelCoordinate(currentValue);
+				pixelCurrentValue = graphPanelAdapter.convertValueToPixelCoordinate(currentValue);
 				currentDerivativeValue = valueTable.getDerivativeValueTable().get(i);
-				pixelCurrentDerivativeValue = convertValueToPixelCoordinate(currentDerivativeValue);
+				pixelCurrentDerivativeValue = graphPanelAdapter.convertValueToPixelCoordinate(currentDerivativeValue);
 				if (drawWithDerivative) {
 					g.setColor(Color.cyan);
 					g.drawLine(pixelFormerDerivativeValue.getX(), pixelFormerDerivativeValue.getY(), pixelCurrentDerivativeValue.getX(), pixelCurrentDerivativeValue.getY());
@@ -147,34 +152,6 @@ public class GraphPanel extends JPanel {
 			}
 			createPanel();
 		}
-	}
-
-	/*
-	 * Helper
-	 * */
-
-	private void determineInitialCenterOfCoordinateSystem() {
-		int halfOfxAxis = this.getWidth() / 2;
-		int halfOfyAxis = this.getHeight() / 2;
-		setCenterOfCoordinateSystem(new PixelCoordinate(halfOfxAxis, halfOfyAxis));
-	}
-
-	public PixelCoordinate convertValueToPixelCoordinate(ValueCoordinate valueCoordinate) {
-		Integer x = getCenterOfCoordinateSystem().getX() + (int) (valueCoordinate.getX()*getGridWidthInPixels());
-		Integer y = getCenterOfCoordinateSystem().getY() - (int) (valueCoordinate.getY()*getGridWidthInPixels());
-		return new PixelCoordinate(x, y);
-	}
-
-	public ValueCoordinate getValueOfPixelMostLeft() {
-		Double x = -(double)getCenterOfCoordinateSystem().getX() / getGridWidthInPixels();
-		Double y = -(double)getCenterOfCoordinateSystem().getY() / getGridWidthInPixels();
-		return new ValueCoordinate(x, y);
-	}
-
-	public ValueCoordinate getValueOfPixelMostRight() {
-		Double x = (double)(getWidth() - getCenterOfCoordinateSystem().getX()) / getGridWidthInPixels();
-		Double y = (double)(getHeight() - getCenterOfCoordinateSystem().getY()) / getGridWidthInPixels();
-		return new ValueCoordinate(x, y);
 	}
 
 	/*
