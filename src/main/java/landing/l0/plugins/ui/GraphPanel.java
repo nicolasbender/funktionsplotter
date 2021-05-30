@@ -1,9 +1,6 @@
 package landing.l0.plugins.ui;
 
-import landing.l1.adapters.Graph;
-import landing.l1.adapters.GraphPanelAdapter;
-import landing.l1.adapters.ResolutionOfxValues;
-import landing.l1.adapters.ValueTable;
+import landing.l1.adapters.*;
 import landing.l2.applicationCode.function.Function;
 import landing.l3.domainCode.representation.PixelCoordinate;
 import landing.l3.domainCode.representation.ValueCoordinate;
@@ -124,7 +121,7 @@ public class GraphPanel extends JPanel {
 		ValueCoordinate valueOfPixelMostRight = graphPanelAdapter.getValueOfPixelMostRight();
 		if(function != null) {
 			if(graph == null) {
-				graph = new Graph(function, valueOfPixelMostLeft, valueOfPixelMostRight);
+				graph = CreateGraph.accordingTo(function).from(valueOfPixelMostLeft).to(valueOfPixelMostRight);
 			} else {
 				graph.setFunction(function);
 				graph.updateValueTable(valueOfPixelMostLeft, valueOfPixelMostRight);
