@@ -31,7 +31,7 @@ public class OptionPanel extends JPanel {
     }
 
     private void createLayout() {
-        this.setLayout(new GridLayout(2,1));
+        this.setLayout(new GridLayout(4,1));
         derivativePanel = new JPanel();
         resolutionPanel = new JPanel();
         this.add(derivativePanel);
