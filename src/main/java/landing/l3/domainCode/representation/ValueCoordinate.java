@@ -4,7 +4,7 @@ import landing.l4.abstractionCode.Tuple;
 
 import java.util.Objects;
 
-public class ValueCoordinate implements Tuple<Double> {
+public final class ValueCoordinate implements Tuple<Double> {
     private final Double x;
     private final Double y;
 

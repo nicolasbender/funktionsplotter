@@ -131,14 +131,14 @@ public class GraphPanel extends JPanel {
 			}
 			ValueTable valueTable = graph.getValueTable();
 
-			formerValue = valueTable.getValueTable().get(0);
+			formerValue = valueTable.atIndex(0);
 			pixelFormerValue = graphPanelAdapter.convertValueToPixelCoordinate(formerValue);
-			formerDerivativeValue = valueTable.getDerivativeValueTable().get(0);
+			formerDerivativeValue = valueTable.atIndexOfDerivative(0);
 			pixelFormerDerivativeValue = graphPanelAdapter.convertValueToPixelCoordinate(formerDerivativeValue);
 			for (int i = 1; i < valueTable.getSize(); i++) {
-				currentValue = valueTable.getValueTable().get(i);
+				currentValue = valueTable.atIndex(i);
 				pixelCurrentValue = graphPanelAdapter.convertValueToPixelCoordinate(currentValue);
-				currentDerivativeValue = valueTable.getDerivativeValueTable().get(i);
+				currentDerivativeValue = valueTable.atIndexOfDerivative(i);
 				pixelCurrentDerivativeValue = graphPanelAdapter.convertValueToPixelCoordinate(currentDerivativeValue);
 				if (drawWithDerivative) {
 					g.setColor(Color.cyan);

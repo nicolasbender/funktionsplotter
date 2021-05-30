@@ -4,7 +4,7 @@ import landing.l4.abstractionCode.Tuple;
 
 import java.util.Objects;
 
-public class PixelCoordinate implements Tuple<Integer> {
+public final class PixelCoordinate implements Tuple<Integer> {
 	private final Integer x;
 	private final Integer y;
 

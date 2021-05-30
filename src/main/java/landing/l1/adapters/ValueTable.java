@@ -14,12 +14,12 @@ public class ValueTable {
 		this.graph = graph;
 	}
 
-	public List<ValueCoordinate> getValueTable() {
-		return valueTable;
+	public ValueCoordinate atIndex(int index) {
+		return valueTable.get(index);
 	}
 
-	public List<ValueCoordinate> getDerivativeValueTable() {
-		return derivativeValueTable;
+	public ValueCoordinate atIndexOfDerivative(int index) {
+		return derivativeValueTable.get(index);
 	}
 
 	public void calculateValuesBetween(ValueCoordinate valueMostLeft, ValueCoordinate valueMostRight) throws ArithmeticException {
