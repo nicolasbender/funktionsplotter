@@ -1,13 +1,12 @@
-package landing.l2.applicationCode.scanner;
+package landing.l3.domainCode.scanner;
 
-import landing.l3.domainCode.scanner.Token;
 import landing.l4.abstractionCode.TokenType;
 import landing.l3.domainCode.exceptions.ParenthesisException;
 import landing.l3.domainCode.exceptions.SymbolException;
 
-public class ScannerHelper {
+public class Tokenizer {
     private String preprocessed;
-    public ScannerHelper(String functionAsString) {
+    public Tokenizer(String functionAsString) {
         this.preprocessed = preprocess(functionAsString);
     }
 

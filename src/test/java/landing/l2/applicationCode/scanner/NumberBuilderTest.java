@@ -1,5 +1,6 @@
 package landing.l2.applicationCode.scanner;
 
+import landing.l3.domainCode.scanner.NumberBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
