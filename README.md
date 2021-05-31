@@ -1,5 +1,5 @@
 # funktionsplotter
-Eine Software zur grafischen Darstellung von mathematischen Funktionen
+Eine [Software](funktionsplotter.jar) zur grafischen Darstellung von mathematischen Funktionen
 
 ## Nutzung
 Im Eingabefeld am oberen Fensterrand nach der Kennzeichnung "f(x)=" kann ein Term eingegeben werden.
